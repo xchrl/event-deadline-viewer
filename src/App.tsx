@@ -73,11 +73,16 @@ function App() {
           {events.map(({ name, deadline }, index) => {
             const deadlineDate = new Date(deadline as Date);
             const format = deadlineDate.toLocaleDateString("pl-PL");
+            const amountOfDaysLeft = subtractDates(deadlineDate, new Date());
             return (
               <TableRow key={index}>
                 <TableCell>{name}</TableCell>
                 <TableCell>{format}</TableCell>
-                <TableCell>{subtractDates(deadlineDate, new Date())}</TableCell>
+                <TableCell>
+                  {`${amountOfDaysLeft} ${
+                    amountOfDaysLeft === 1 ? "day" : "days"
+                  }`}
+                </TableCell>
               </TableRow>
             );
           })}
