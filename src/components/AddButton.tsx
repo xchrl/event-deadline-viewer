@@ -20,7 +20,7 @@ function AddButton() {
   const [deadline, setDeadline] = useState<Date | undefined>(undefined);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(typeof deadline);
+    if (deadline == undefined) return "Fail: deadline isn't date";
     const newData: Event = { name, deadline };
 
     const existingData = localStorage.getItem("events");

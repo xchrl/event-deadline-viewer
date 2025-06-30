@@ -31,7 +31,6 @@ function EditButton() {
       event.name == name ? { name: newName, deadline: newDeadline } : event
     );
     localStorage.setItem("events", JSON.stringify(updatedData));
-    console.log(updatedData);
     window.dispatchEvent(new Event("dataUpdated"));
     setDialogOpen(false);
   };

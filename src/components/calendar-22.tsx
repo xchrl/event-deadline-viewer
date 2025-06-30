@@ -19,7 +19,6 @@ export default function Calendar22({
   const [open, setOpen] = React.useState(false);
 
   function handleSelect(selectedDate: Date | undefined) {
-    console.log(selectedDate);
     setDate(selectedDate);
     setOpen(false);
   }
@@ -45,6 +44,7 @@ export default function Calendar22({
             onSelect={handleSelect}
             showWeekNumber={true}
             weekStartsOn={1}
+            timeZone="UTC"
           />
         </PopoverContent>
       </Popover>
