@@ -16,10 +16,9 @@ import { type Event } from "@/types/Event";
 import Calendar22 from "./calendar-22";
 
 function EditButton() {
-  const [name, setName] = useState("");
+  const [id, setID] = useState<number>(0);
   const [newName, setNewName] = useState("");
   const [newDeadline, setNewDeadline] = useState<Date | undefined>(undefined);
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -28,20 +27,17 @@ function EditButton() {
 
     if (existingData) parsedData = JSON.parse(existingData);
     const updatedData = parsedData.map((event) =>
-      event.name == name ? { name: newName, deadline: newDeadline } : event
+      event.id == id ? { name: newName, deadline: newDeadline } : event
     );
     localStorage.setItem("events", JSON.stringify(updatedData));
     window.dispatchEvent(new Event("dataUpdated"));
-    setDialogOpen(false);
   };
 
   return (
-    <Dialog open={dialogOpen}>
+    <Dialog>
       <form id="editEventForm" onSubmit={handleSubmit}>
         <DialogTrigger asChild>
-          <Button variant="outline" onClick={() => setDialogOpen(true)}>
-            Edit event
-          </Button>
+          <Button variant="outline">Edit event</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -50,11 +46,11 @@ function EditButton() {
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <Label htmlFor="name">Event name</Label>
+              <Label htmlFor="name">Event ID</Label>
               <Input
                 id="name"
                 name="name"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setID(parseInt(e.target.value))}
               />
             </div>
             <div className="grid gap-3">

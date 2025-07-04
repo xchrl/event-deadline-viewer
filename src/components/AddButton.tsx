@@ -12,8 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState, type FormEvent } from "react";
-import { type Event } from "@/types/Event";
+// import { type Event } from "@/types/Event";
 import Calendar22 from "./calendar-22";
+import { CustomEvent } from "@/types/Event";
 
 function AddButton() {
   const [name, setName] = useState("");
@@ -21,10 +22,10 @@ function AddButton() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (deadline == undefined) return "Fail: deadline isn't date";
-    const newData: Event = { name, deadline };
+    const newData: CustomEvent = new CustomEvent(name, deadline);
 
     const existingData = localStorage.getItem("events");
-    let parsedData: Event[] = [];
+    let parsedData: CustomEvent[] = [];
 
     if (existingData) parsedData = JSON.parse(existingData);
     parsedData.push(newData);

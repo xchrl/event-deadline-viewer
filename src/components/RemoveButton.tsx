@@ -15,7 +15,7 @@ import { useState, type FormEvent } from "react";
 import { type Event } from "@/types/Event";
 
 function RemoveButton() {
-  const [name, setName] = useState("");
+  const [id, setID] = useState<number>(0);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -23,7 +23,7 @@ function RemoveButton() {
     let parsedData: Event[] = [];
 
     if (existingData) parsedData = JSON.parse(existingData);
-    const newData: Event[] = parsedData.filter((event) => event.name !== name);
+    const newData: Event[] = parsedData.filter((event) => event.id !== id);
     localStorage.setItem("events", JSON.stringify(newData));
     window.dispatchEvent(new Event("dataUpdated"));
   };
@@ -41,11 +41,11 @@ function RemoveButton() {
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <Label htmlFor="name">Event name</Label>
+              <Label htmlFor="name">Event ID</Label>
               <Input
                 id="name"
                 name="name"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setID(parseInt(e.target.value))}
               />
             </div>
           </div>
